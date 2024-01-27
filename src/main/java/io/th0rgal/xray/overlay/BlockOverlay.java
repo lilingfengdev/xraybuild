@@ -11,22 +11,13 @@ import io.netty.buffer.Unpooled;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class BlockOverlay {
 
     private final Location location;
     private final int color;
     private final int lifetime;
     private final String title;
-
-    public BlockOverlay(Location location, int color, int lifetime) {
-        this.location = location;
-        this.color = color;
-        this.lifetime = lifetime;
-        this.title = "";
-    }
-
+    
     public BlockOverlay(Location location, int color) {
         this.location = location;
         this.color = color;
@@ -48,7 +39,7 @@ public class BlockOverlay {
                 MinecraftReflection.getPacketDataSerializer(Unpooled.wrappedBuffer(out.toByteArray())));
         try {
             ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
-        } catch (InvocationTargetException exception) {
+        } catch (IllegalArgumentException exception) {
             throw new RuntimeException("Cannot send packet " + packetContainer, exception);
         }
     }
@@ -76,11 +67,7 @@ public class BlockOverlay {
                 new MinecraftKey("minecraft", "debug/game_test_clear"));
         packetContainer.getModifier().write(1,
                 MinecraftReflection.getPacketDataSerializer(Unpooled.wrappedBuffer(new byte[]{})));
-        try {
-            ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
-        } catch (InvocationTargetException exception) {
-            throw new RuntimeException("Cannot send packet " + packetContainer, exception);
-        }
+        ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
     }
 
 }

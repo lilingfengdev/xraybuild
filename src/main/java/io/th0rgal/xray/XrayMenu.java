@@ -4,13 +4,11 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
-import io.th0rgal.xray.XrayPlugin;
 import io.th0rgal.xray.blocks.BlockWrapper;
 import io.th0rgal.xray.config.Config;
 import io.th0rgal.xray.overlay.DisplayData;
 
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
@@ -32,7 +30,7 @@ public class XrayMenu {
 
         final StaticPane pane = new StaticPane(0, 0, 9, 5);
         int i = 0;
-        for (String name : categories.getKeys(false).stream().sorted().collect(Collectors.toList())) {
+        for (String name : categories.getKeys(false).stream().sorted().toList()) {
             pane.addItem(new GuiItem(getItemStack(Config.MENU_CATEGORY_ITEM.toWrappedBlock(name).getAsItem(),
                     Config.MENU_CATEGORY_NAME.toSerializedString(name)),
                             event -> getCategoryGUI(event.getWhoClicked(), name).show(event.getWhoClicked())),

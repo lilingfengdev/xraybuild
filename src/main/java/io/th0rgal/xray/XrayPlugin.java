@@ -2,7 +2,7 @@ package io.th0rgal.xray;
 
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import dev.jorel.commandapi.CommandAPI;
-import dev.jorel.commandapi.CommandAPIConfig;
+import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import io.th0rgal.xray.overlay.DisplayData;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,14 +19,16 @@ public class XrayPlugin extends JavaPlugin {
     @Override
     public void onLoad() {
         instance = this;
-        CommandAPI.onLoad(new CommandAPIConfig().silentLogs(true));
+        CommandAPI.onLoad(new CommandAPIBukkitConfig(
+                this
+        ).silentLogs(true));
     }
 
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
         menu = new XrayMenu().create();
-        CommandAPI.onEnable(this);
+        CommandAPI.onEnable();
         new XrayCommand().register();
     }
 

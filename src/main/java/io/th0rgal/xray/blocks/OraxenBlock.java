@@ -1,6 +1,6 @@
 package io.th0rgal.xray.blocks;
 
-import io.th0rgal.oraxen.items.OraxenItems;
+import io.th0rgal.oraxen.items.ItemTemplate;
 import io.th0rgal.oraxen.mechanics.provided.gameplay.noteblock.NoteBlockMechanic;
 import io.th0rgal.oraxen.mechanics.provided.gameplay.noteblock.NoteBlockMechanicFactory;
 import org.bukkit.Material;
@@ -15,8 +15,8 @@ public class OraxenBlock extends BlockWrapper {
 
     public OraxenBlock(String name) {
         super("oraxen", name);
-        item = OraxenItems.getItemById(name).build();
-        customVariation = ((NoteBlockMechanic) NoteBlockMechanicFactory.getInstance().getMechanic(name))
+        item = ItemTemplate.getItemTemplates().get(name).buildItem().build();
+        customVariation = (NoteBlockMechanicFactory.getInstance().getMechanic(name))
                 .getCustomVariation();
     }
 

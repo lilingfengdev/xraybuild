@@ -4,12 +4,8 @@ import io.th0rgal.xray.XrayPlugin;
 import io.th0rgal.xray.blocks.BlockWrapper;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 public enum Config {
     RENDER_DISTANCE("settings.render_distance"),
@@ -56,8 +52,7 @@ public enum Config {
     }
 
     public @NotNull String toSerializedString(String... placeholders) {
-        return LEGACY_COMPONENT_SERIALIZER.serialize(MiniMessage.get()
-                .parse(toString(placeholders)));
+        return LEGACY_COMPONENT_SERIALIZER.serialize(MiniMessage.miniMessage().deserialize(toString(placeholders)));
     }
 
     public BlockWrapper toWrappedBlock(String... placeholders) {
